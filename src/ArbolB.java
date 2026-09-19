@@ -1,4 +1,3 @@
-
 public class ArbolB {
 
     private Nodo raiz;
@@ -16,6 +15,9 @@ public class ArbolB {
             i++;
         if(i < nodo.llaves.size() && nodo.llaves.get(i) == x)
             return true;
+        if (nodo.hoja()){
+            return false;
+        }
         return buscar(nodo.hijos.get(i), x);
         
     }
@@ -77,7 +79,7 @@ public class ArbolB {
 
     private void noHayLlaves(Nodo padre, int indice){
         Nodo hijo = padre.hijos.get(indice);
-        if(!hijo.llaves.isEmpty())
+        if(!hijo.estaSubocupado())
             return;
         Nodo izqHermano = indice > 0 ? padre.hijos.get(indice - 1) : null;
         Nodo derHermano = indice < padre.hijos.size() - 1 ? padre.hijos.get(indice + 1) : null;

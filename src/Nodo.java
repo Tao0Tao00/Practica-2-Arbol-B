@@ -52,6 +52,6 @@ public class Nodo{
      * es decir cuando las llaves es = 1
      */
 	public boolean estaSubocupado(){
-		return llaves.size() <= 1;
+		return llaves.isEmpty();
 	}
 }
