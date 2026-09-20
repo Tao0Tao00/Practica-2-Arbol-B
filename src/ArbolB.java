@@ -189,21 +189,29 @@ public class ArbolB {
     }
 
     public void imprimirArbol() {
-        Queue<Nodo> cola = new LinkedList<>();
         if (raiz == null) {
             return;
         }
+        Queue<Nodo> cola = new LinkedList<>();
         cola.add(raiz);
+        int numNivel = 0;
         while (!cola.isEmpty()) {
             int nivel = cola.size();
+            System.out.print("Nivel " + numNivel + ": ");
             for (int i = 0; i < nivel; i++) {
                 Nodo actual = cola.poll();
-                System.out.print(actual.llaves + " ");
+                System.out.print("[");
+                for (int j = 0; j < actual.llaves.size(); j++) {
+                    System.out.print(actual.llaves.get(j));
+                    if (j < actual.llaves.size() - 1) System.out.print("|");
+                }
+                System.out.print("] ");
                 for (Nodo hijo : actual.hijos) {
                     cola.add(hijo);
                 }
             }
             System.out.println();
+            numNivel++;
         }
     }
 }
