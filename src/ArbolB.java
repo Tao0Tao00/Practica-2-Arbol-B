@@ -144,7 +144,6 @@ public class ArbolB {
                 Nodo nuevoDer = new Nodo ();
                 nuevoDer.llaves.add(nodo.llaves.remove(3));
                 nodo.llaves.remove(2);
-                nodo.llaves.remove(3);
                 return new Split(promovida, nuevoDer);
             }
             return null;
@@ -165,13 +164,10 @@ public class ArbolB {
             if (nodo.llaves.size() > 3) {
                 int promovida = nodo.llaves.get(2);
                 Nodo nuevoDer = new Nodo();
+                nuevoDer.llaves.add(nodo.llaves.remove(3));
 
                 nuevoDer.hijos.add(nodo.hijos.remove(3));
-                nuevoDer.hijos.add(nodo.hijos.remove(4));
-
-                nodo.hijos.remove(4);
-                nodo.hijos.remove(3);
-                nodo.llaves.remove(3);
+                nuevoDer.hijos.add(nodo.hijos.remove(3));
                 nodo.llaves.remove(2);
                 return new Split(promovida, nuevoDer);
             }
