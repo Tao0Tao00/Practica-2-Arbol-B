@@ -113,4 +113,79 @@ public class ArbolB {
         izq.hijos.addAll(der.hijos);
     }
     
+    public void instertar (int k) {
+        if (busqueda(k)) {
+            return;
+        }
+    
+        if (raiz == null) {
+            Nodo n = new Nodo();
+            n.llavesOrdenadas(k);
+            raiz = n;
+            return;
+        }
+
+        Split split = insertarAux(raiz, k);
+        if (split != null) {
+            Nodo nuevaRaiz = new Nodo();
+            nuevaRaiz.llaves.add(split.llavePromovida);
+            nuevaRaiz.hijos.add(raiz);
+            nuevaRaiz.hijos.add(split.nuevoHijo);
+            raiz = nuevaRaiz;
+        }
+    }
+
+    private Split insertarAux (Nodo nodo, int k) {
+        if (nodo.hoja()) {
+            nodo.llavesOrdenadas(k);
+            if (nodo.llaves.size() > 3) {
+                int promovida = nodo.llaves.get(2);
+
+                Nodo nuevoDer = new Nodo ();
+                nuevoDer.llaves.add(nodo.llaves.remove(3));
+                nodo.llaves.remove(2);
+                nodo.llaves.remove(3);
+                return new Split(promovida, nuevoDer);
+            }
+            return null;
+        } else {
+            int i = 0;
+            while (i < nodo.llaves.size() && k > nodo.llaves.get(i)) {
+                i ++;
+            }
+            Split split = insertarAux(nodo.hijos.get(i), k);
+
+            if (split == null) {
+                return null;
+            }
+
+            nodo.llaves.add(i, split.llavePromovida);
+            nodo.hijos.add(i + 1, split.nuevoHijo);
+
+            if (nodo.llaves.size() > 3) {
+                int promovida = nodo.llaves.get(2);
+                Nodo nuevoDer = new Nodo();
+
+                nuevoDer.hijos.add(nodo.hijos.remove(3));
+                nuevoDer.hijos.add(nodo.hijos.remove(4));
+
+                nodo.hijos.remove(4);
+                nodo.hijos.remove(3);
+                nodo.llaves.remove(3);
+                nodo.llaves.remove(2);
+                return new Split(promovida, nuevoDer);
+            }
+            return null;
+        }
+    }
+
+    private class Split {
+        int llavePromovida;
+        Nodo nuevoHijo;
+
+        public Split(int llavePromovida, Nodo nuevoHijo) {
+            this.llavePromovida = llavePromovida;
+            this.nuevoHijo = nuevoHijo;
+        }
+    }
 }
