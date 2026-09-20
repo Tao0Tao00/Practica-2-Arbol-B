@@ -1,5 +1,7 @@
+/**
+ * Clase que prueba la implementacion del arbol B
+ */
 public class PruebaArbolB {
-
     public static void main(String[] args) {
         ArbolB arbol = new ArbolB();
 
@@ -30,6 +32,11 @@ public class PruebaArbolB {
         mostrarBusqueda(arbol, 35);
     }
 
+    /**
+     * Metodo auxiliar que muestra el resultado de una busqueda en el arbol B
+     * @param arbol arbol B donde se realiza la busqueda
+     * @param x llave a buscar
+     */
     private static void mostrarBusqueda(ArbolB arbol, int x) {
         String resultado;
         if (arbol.busqueda(x)) {

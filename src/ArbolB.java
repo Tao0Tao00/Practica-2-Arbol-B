@@ -1,14 +1,20 @@
 import java.util.Queue;
 import java.util.LinkedList;
 
+
+/**
+ * Clase que representa un Arbol B de orden 4, con metodos para insertar, eliminar y buscar llaves
+ */
 public class ArbolB {
 
     private Nodo raiz;
-    
-    public boolean busqueda(int x){
-        return  buscar(raiz, x);
-    }
 
+    /**
+     * Metodo recursivo que busca una llave en el arbol B
+     * @param nodo nodo actual del arbol
+     * @param x llave a buscar
+     * @return true si la llave se encuentra en el arbol, false en caso contrario
+     */
     private boolean buscar(Nodo nodo, int x){
         if(nodo == null)
             return false;
@@ -25,7 +31,20 @@ public class ArbolB {
         
     }
 
-    
+    /**
+     * Metodo auxiliar que busca una llave en el arbol B
+     * @param x llave a buscar
+     * @return true si la llave se encuentra en el arbol, false en caso contrario
+     */
+    public boolean busqueda(int x){
+        return  buscar(raiz, x);
+    }
+
+
+    /**
+     * Metodo que elimina una llave del arbol B
+     * @param x llave a eliminar
+     */    
     public void eliminar(int x){
         if(raiz == null || !busqueda(x))
             return;
@@ -34,7 +53,12 @@ public class ArbolB {
             raiz = raiz.hijos.get(0);
         }
     }
-
+    
+    /**
+     * Metodo auxiliar que elimina una llave del arbol B
+     * @param nodo nodo actual del arbol
+     * @param x llave a eliminar
+     */
     private void eliminarMet(Nodo nodo, int x){
         int i = 0;
         while(i < nodo.llaves.size() && x > nodo.llaves.get(i))
@@ -70,16 +94,32 @@ public class ArbolB {
         }
     }
 
+    /**
+     * Metodo auxiliar que encuentra el valor maximo de un nodo
+     * @param nodo nodo actual del arbol
+     * @return valor maximo del nodo
+     */
     private int maximo(Nodo nodo){
         while(!nodo.hoja()) nodo = nodo.hijos.get(nodo.hijos.size() - 1);
         return nodo.llaves.get(nodo.llaves.size() - 1);
     }
 
+    /**
+     * Metodo auxiliar que encuentra el valor minimo de un nodo
+     * @param nodo nodo actual del arbol
+     * @return valor minimo del nodo
+     */
     private int minimo(Nodo nodo){
         while(!nodo.hoja()) nodo = nodo.hijos.get(0);
         return nodo.llaves.get(0);
     }
 
+    /**
+     * Metodo auxiliar que verifica si un nodo tiene llaves y si no las tiene, realiza las 
+     * operaciones necesarias para mantener el arbol B balanceado
+     * @param padre nodo padre del nodo actual
+     * @param indice indice del nodo actual en el arreglo de hijos del nodo padre
+     */
     private void noHayLlaves(Nodo padre, int indice){
         Nodo hijo = padre.hijos.get(indice);
         if(!hijo.estaSubocupado())
@@ -106,6 +146,11 @@ public class ArbolB {
         }
     }
 
+    /**
+     * Metodo auxiliar que fusiona dos nodos hijos de un nodo padre
+     * @param padre nodo padre de los nodos a fusionar
+     * @param indIzq indice del nodo izquierdo en el arreglo de hijos del nodo padre
+     */
     private void fusionar(Nodo padre, int indIzq){
         Nodo izq = padre.hijos.get(indIzq);
         Nodo der = padre.hijos.get(indIzq + 1);
@@ -115,7 +160,12 @@ public class ArbolB {
         izq.llaves.addAll(der.llaves);
         izq.hijos.addAll(der.hijos);
     }
+
     
+    /**
+     * Metodo que inserta una llave en el arbol B
+     * @param k llave a insertar
+     */
     public void insertar (int k) {
         if (busqueda(k)) {
             return;
@@ -138,6 +188,12 @@ public class ArbolB {
         }
     }
 
+    /**
+     * Metodo auxiliar que inserta una llave en el arbol B
+     * @param nodo nodo actual del arbol
+     * @param k llave a insertar
+     * @return un objeto Split si el nodo se divide, null en caso contrario
+     */
     private Split insertarAux (Nodo nodo, int k) {
         if (nodo.hoja()) {
             nodo.llavesOrdenadas(k);
@@ -178,6 +234,10 @@ public class ArbolB {
         }
     }
 
+    /**
+     * Clase auxiliar que representa el resultado de una división de un nodo
+     * Contiene la llave promovida y el nuevo nodo hijo creado
+     */
     private class Split {
         int llavePromovida;
         Nodo nuevoHijo;
@@ -188,6 +248,10 @@ public class ArbolB {
         }
     }
 
+    /**
+     * Metodo que imprime el arbol B en niveles, mostrando las llaves de cada nodo
+     * y separando los niveles con un salto de linea
+     */
     public void imprimirArbol() {
         if (raiz == null) {
             return;
