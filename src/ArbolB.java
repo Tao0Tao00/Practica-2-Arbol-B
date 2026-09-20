@@ -1,3 +1,6 @@
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class ArbolB {
 
     private Nodo raiz;
@@ -113,7 +116,7 @@ public class ArbolB {
         izq.hijos.addAll(der.hijos);
     }
     
-    public void instertar (int k) {
+    public void insertar (int k) {
         if (busqueda(k)) {
             return;
         }
@@ -182,6 +185,25 @@ public class ArbolB {
         public Split(int llavePromovida, Nodo nuevoHijo) {
             this.llavePromovida = llavePromovida;
             this.nuevoHijo = nuevoHijo;
+        }
+    }
+
+    public void imprimirArbol() {
+        Queue<Nodo> cola = new LinkedList<>();
+        if (raiz == null) {
+            return;
+        }
+        cola.add(raiz);
+        while (!cola.isEmpty()) {
+            int nivel = cola.size();
+            for (int i = 0; i < nivel; i++) {
+                Nodo actual = cola.poll();
+                System.out.print(actual.llaves + " ");
+                for (Nodo hijo : actual.hijos) {
+                    cola.add(hijo);
+                }
+            }
+            System.out.println();
         }
     }
 }
