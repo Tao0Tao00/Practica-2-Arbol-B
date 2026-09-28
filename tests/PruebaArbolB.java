@@ -21,6 +21,7 @@ public class PruebaArbolB {
         arbol.imprimirArbol();
         mostrarBusqueda(arbol, 35);
         mostrarBusqueda(arbol, 99);
+        mostrarValidacion(arbol);  
 
         arbol.eliminar(25);
         arbol.eliminar(10);
@@ -45,5 +46,19 @@ public class PruebaArbolB {
             resultado = "NOT_FOUND";
         }
         System.out.println("buscar(" + x + ") -> " + resultado);
+    }
+
+    /**
+     * Metodo auxiliar que muestra el resultado de la validacion del arbol B
+     * @param arbol arbol B a validar
+     */
+    private static void mostrarValidacion(ArbolB arbol) {
+        String resultado = arbol.validarArbol();
+        if (resultado.equals("VALIDO")) {
+            System.out.println("validarArbol() -> VALIDO");
+        } else {
+            System.out.println("validarArbol() -> INVALIDO:");
+            System.out.println(resultado);
+        }
     }
 }

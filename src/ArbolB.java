@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class ArbolB {
 
     private Nodo raiz;
-
+ 
     /**
      * Metodo recursivo que busca una llave en el arbol B
      * @param nodo nodo actual del arbol
@@ -276,6 +276,112 @@ public class ArbolB {
             }
             System.out.println();
             numNivel++;
+        }
+    }
+
+    /**
+     * Recorre la estructura y verifica automáticamente:
+     * llaves ordenadas en cada nodo;
+     * máximo tres llaves por nodo;
+     * cantidad correcta de hijos en nodos internos;
+     * mínimo de una llave en nodos distintos de la raíz;
+     * todas las hojas en el mismo nivel.
+     **/
+    public String validarArbol() {
+        if (raiz == null) {
+            return "Arbol vacio: VALIDO";
+        }
+
+        boolean okOrden      = true;
+        boolean okMaxLlaves  = true;
+        boolean okHijos      = true;
+        boolean okMinLlaves  = true;
+        boolean okHojasNivel = true;
+
+        Queue<Nodo> cola = new LinkedList<>();
+        cola.add(raiz);
+
+        int numNivel = 0;
+        int nivelHoja = -1;
+
+        while (!cola.isEmpty()) {
+            int tamNivel = cola.size();
+
+            for (int i = 0; i < tamNivel; i++) {
+                Nodo actual = cola.poll();
+                if (actual == null) continue;
+
+                // Maximo tres llaves por nodo
+                if (actual.llaves.size() > 3) {
+                    okMaxLlaves = false;
+                }
+
+                // Llaves ordenadas
+                for (int j = 1; j < actual.llaves.size(); j++) {
+                    if (actual.llaves.get(j - 1) >= actual.llaves.get(j)) {
+                        okOrden = false;
+                        break;
+                    }
+                }
+
+                // Minimo de llaves (excepto la raiz)
+                if (actual != raiz && actual.llaves.isEmpty()) {
+                    okMinLlaves = false;
+                }
+
+                // Cantidad correcta de hijos en nodos internos
+                if (!actual.hoja()) {
+                    int hijosEsperados = actual.llaves.size() + 1;
+                    if (actual.hijos.size() != hijosEsperados) {
+                        okHijos = false;
+                    }
+                }
+
+                // Todas las hojas al mismo nivel
+                if (actual.hoja()) {
+                    if (nivelHoja == -1) {
+                        nivelHoja = numNivel;
+                    } else if (nivelHoja != numNivel) {
+                        okHojasNivel = false;
+                    }
+                }
+
+                for (Nodo hijo : actual.hijos) {
+                    if (hijo != null) cola.add(hijo);
+                }
+            }
+            numNivel++;
+        }
+
+        boolean todoOk = okOrden && okMaxLlaves && okHijos && okMinLlaves && okHojasNivel;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Llaves ordenadas:         ").append(siNo(okOrden)).append("\n");
+        sb.append("Maximo 3 llaves por nodo: ").append(siNo(okMaxLlaves)).append("\n");
+        sb.append("Hijos correctos:          ").append(siNo(okHijos)).append("\n");
+        sb.append("Minimo 1 llave (no raiz): ").append(siNo(okMinLlaves)).append("\n");
+        sb.append("Hojas al mismo nivel:     ").append(siNo(okHojasNivel)).append("\n");
+
+        sb.append("Resultado: ");
+        if (todoOk) {
+            sb.append("VALIDO");
+        } else {
+            sb.append("INVALIDO");
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Convierte un booleano en "SI" o "NO"
+     * @param valor booleano a convertir
+     * @return "SI" si es true, "NO" si es false
+     */
+    private String siNo(boolean valor) {
+        if (valor) {
+            return "VALIDO";
+        } else {
+            return "NO";
         }
     }
 }
