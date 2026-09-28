@@ -373,9 +373,9 @@ public class ArbolB {
     }
 
     /**
-     * Convierte un booleano en "SI" o "NO"
+     * Convierte un booleano en "VALIDO" o "NO"
      * @param valor booleano a convertir
-     * @return "SI" si es true, "NO" si es false
+     * @return "VALIDO" si es true, "NO" si es false
      */
     private String siNo(boolean valor) {
         if (valor) {
