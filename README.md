@@ -8,8 +8,8 @@ _javac src/*.java tests/*.java_
 _java -cp src:tests PruebaArbolB_
 
 ## 3. instrucciones para ejecutar los casos de prueba;
-_javac -d src/bin -cp src/bin src/*.java tests/*.java_
-_java -cp src/bin PruebaArbolB_
+_javac -d src/bin -cp src/bin src/*.java tests/*.java_<br>
+_java -cp src/bin PruebaArbolB_<br>
 
 ## 4. explicación breve de la representación de un nodo;
 Es la **agrupación de llaves ordenadas en una lista**, con referencias a los nodos hijos y un indicador booleano de si es hoja.
