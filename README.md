@@ -4,8 +4,8 @@
 JAVA
 
 ## 2. instrucciones para ejecutar el programa;
-_javac -d src/bin src/*.java_
-_java -cp src/bin Main_
+_javac src/*.java tests/*.java_
+_java -cp src:tests PruebaArbolB_
 
 ## 3. instrucciones para ejecutar los casos de prueba;
 _javac -d src/bin -cp src/bin src/*.java tests/*.java_
