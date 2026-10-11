@@ -34,6 +34,7 @@ La redistribución **toma prestada** una llave de un nodo hermano que tenga llav
 No se puede decidir comparando solo con la primera llave porque las distintas llaves del nodo **se dividen hasta cuatro hijos distintos**, por lo que una primera comparación solo indica si el valor es menor a la primera llave o si esta a su derecha, sin decir en cual de los demas hijos corresponden a insertar<br>
 
 documentar la solución en README.md. **
+.
 
 ### 10.2. ¿Por qué una búsqueda no debe recorrer todos los hijos de un nodo?<br>
 Ya que todos los hijos tienen el **orden estricto** de las llaves el cual determina un único camino válido, perservando igual su tiempo logaritmico.<br>
